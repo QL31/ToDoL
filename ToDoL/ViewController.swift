@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
 
     
-    let itemArray=["Find toillet paper","Buy Spaguetti","Buy water"]
+    var itemArray=["Find toillet paper","Buy Spaguetti","Buy water"]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -41,7 +41,37 @@ class ViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    //MARM --add new Item
+    
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textfield=UITextField()
+        
+        let alert=UIAlertController(title: "Add new TodoL Item", message: "", preferredStyle: .alert)
+        let action=UIAlertAction(title: "Add new Item", style: .default) { (atction) in
+            //what will happen when user presse the add new item button
+            print("succes!")
+            
+            self.itemArray.append(textfield.text!)
+            
+            self.tableView.reloadData()
+            
+        }
+        
+        alert.addAction(action)
+        
+        alert.addTextField { (alertTextField) in
+            
+            alertTextField.placeholder="Creat new item"
+            textfield=alertTextField
+            
+        }
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
 
 }
 
