@@ -9,11 +9,11 @@
 import UIKit
 
 class ViewController: UITableViewController {
-
+    
     
     var itemArray = [Item]()
-        
-        //["Find toillet paper","Buy Spaguetti","Buy water"]
+    
+    //["Find toillet paper","Buy Spaguetti","Buy water"]
     
     let defauts = UserDefaults.standard
     
@@ -25,12 +25,18 @@ class ViewController: UITableViewController {
         item1.title="Find toillet paper"
         itemArray.append(item1)
         
+        let item2=Item()
+        item2.title="Find toillet paper"
+        itemArray.append(item2)
+        let item3=Item()
+        item3.title="Find toillet paper"
+        itemArray.append(item3)
         
         
         
-//        if let item=defauts.array(forKey: "TodoListArray") as? [String]{
-//            itemArray=item
-//        }
+        if let item=defauts.array(forKey: "TodoListArray") as? [Item]{
+            itemArray=item
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,16 +46,10 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell=tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        //Ternary operator==>
+        //value=condition ? valueIfTrue :valueIfFalse
         
         cell.accessoryType = itemArray[indexPath.row].done ? .checkmark : .none
-        
-        
-//        if itemArray[indexPath.row].done == true{
-//            cell.accessoryType = .checkmark
-//        }
-//        else{
-//            cell.accessoryType = .none
-//        }
         
         cell.textLabel?.text=itemArray[indexPath.row].title
         
@@ -63,20 +63,7 @@ class ViewController: UITableViewController {
         
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-//        if itemArray[indexPath.row].done == true{
-//
-//            itemArray[indexPath.row].done = false
-//        }
-//        else{
-//            itemArray[indexPath.row].done = true
-//        }
-        
-//        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-//            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-//        }
-//        else {
-//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-//        }
+        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -116,6 +103,6 @@ class ViewController: UITableViewController {
         
     }
     
-
+    
 }
 
