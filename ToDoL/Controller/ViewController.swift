@@ -13,30 +13,36 @@ class ViewController: UITableViewController {
     
     var itemArray = [Item]()
     
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
+    
     //["Find toillet paper","Buy Spaguetti","Buy water"]
     
-    let defauts = UserDefaults.standard
+    // let defauts = UserDefaults.standard
+    
+    
+    //print(dataFilePath
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let item1=Item()
-        item1.title="Find toillet paper"
-        itemArray.append(item1)
+//
+//        let item1=Item()
+//        item1.title="Find toillet paper"
+//        itemArray.append(item1)
+//
+//        let item2=Item()
+//        item2.title="Buy spaquettiiiiii"
+//        itemArray.append(item2)
+//        let item3=Item()
+//        item3.title="Stay at Home"
+//        itemArray.append(item3)
         
-        let item2=Item()
-        item2.title="Find toillet paper"
-        itemArray.append(item2)
-        let item3=Item()
-        item3.title="Find toillet paper"
-        itemArray.append(item3)
+        loadItem()
         
-        
-        
-        if let item=defauts.array(forKey: "TodoListArray") as? [Item]{
-            itemArray=item
-        }
+        //        if let item=defauts.array(forKey: "TodoListArray") as? [Item]{
+        //            itemArray=item
+        //        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,7 +69,9 @@ class ViewController: UITableViewController {
         
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        tableView.reloadData()
+        saveItem()
+        
+        //tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -75,6 +83,7 @@ class ViewController: UITableViewController {
         var textfield=UITextField()
         
         let alert=UIAlertController(title: "Add new TodoL Item", message: "", preferredStyle: .alert)
+        
         let action=UIAlertAction(title: "Add new Item", style: .default) { (atction) in
             //what will happen when user presse the add new item button
             //print("succes!")
@@ -84,9 +93,9 @@ class ViewController: UITableViewController {
             self.itemArray.append(item)
             
             //self.itemArray.append(textfield.text!)
-            self.defauts.set(self.itemArray, forKey: "TodoListArray")
+            //self.defauts.set(self.itemArray, forKey: "TodoListArray")
+            self.saveItem()
             
-            self.tableView.reloadData()
             
         }
         
@@ -96,12 +105,44 @@ class ViewController: UITableViewController {
             
             alertTextField.placeholder="Creat new item"
             textfield=alertTextField
-            
         }
         
         present(alert, animated: true, completion: nil)
         
     }
+    
+    func saveItem(){
+        
+        let encoder=PropertyListEncoder()
+        
+        do{
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+            
+        } catch{
+            
+            print("Error encoding item array ,\(error)")
+        }
+        
+        tableView.reloadData()
+        
+    }
+    
+    func loadItem(){
+        
+        if let data=try? Data(contentsOf: dataFilePath!){
+            
+            let decoder = PropertyListDecoder()
+            
+            do{
+                itemArray = try decoder.decode([Item].self, from: data)
+            }catch{
+                print("error decoding item array,\(error)")
+            }
+            
+        }
+    }
+    
     
     
 }
