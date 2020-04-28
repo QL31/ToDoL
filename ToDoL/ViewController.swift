@@ -12,9 +12,15 @@ class ViewController: UITableViewController {
 
     
     var itemArray=["Find toillet paper","Buy Spaguetti","Buy water"]
+    
+    let defauts = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if let item=defauts.array(forKey: "TodoListArray") as? [String]{
+            itemArray=item
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,6 +45,7 @@ class ViewController: UITableViewController {
         else {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     //MARM --add new Item
@@ -51,9 +58,10 @@ class ViewController: UITableViewController {
         let alert=UIAlertController(title: "Add new TodoL Item", message: "", preferredStyle: .alert)
         let action=UIAlertAction(title: "Add new Item", style: .default) { (atction) in
             //what will happen when user presse the add new item button
-            print("succes!")
+            //print("succes!")
             
             self.itemArray.append(textfield.text!)
+            self.defauts.set(self.itemArray, forKey: "TodoListArray")
             
             self.tableView.reloadData()
             
