@@ -9,14 +9,19 @@
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController {
+class TodoViewController: UITableViewController {
     
     
     var itemArray = [Item]()
     
     //    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
     
-    
+    var seletedGategoris : Categorie? {
+        
+        didSet{
+             loadItem()
+        }
+    }
     
     let context=(UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -35,9 +40,7 @@ class ViewController: UITableViewController {
         //        let item1=Item()
         //        item1.title="Find toillet paper"
         //        itemArray.append(item1)
-        
-        
-        loadItem()
+//        loadItem()
         
         //        if let item=defauts.array(forKey: "TodoListArray") as? [Item]{
         //            itemArray=item
@@ -51,6 +54,7 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell=tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        
         //Ternary operator==>
         //value=condition ? valueIfTrue :valueIfFalse
         
@@ -91,6 +95,7 @@ class ViewController: UITableViewController {
             let item=Item(context: self.context)
             item.title=textfield.text!
             item.done=false
+            item.parentGategorie = self.seletedGategoris
             self.itemArray.append(item)
             
             //self.itemArray.append(textfield.text!)
@@ -134,9 +139,21 @@ class ViewController: UITableViewController {
         
     }
     
-    func loadItem(with request: NSFetchRequest<Item>=Item.fetchRequest() ){
+    func loadItem(with request: NSFetchRequest<Item>=Item.fetchRequest(), predicate: NSPredicate? = nil ){
         
         //let request:NSFetchRequest<Item>=Item.fetchRequest()
+        
+        let categoryPredicat = NSPredicate(format: "parentGategorie.name MATCHES %@", seletedGategoris!.name!)
+        
+        if let addtionalPredicat = predicate {
+            
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicat,addtionalPredicat])
+            
+        }else{
+            
+            request.predicate=categoryPredicat
+        }
+        
         do{
             
             itemArray = try context.fetch(request)
@@ -144,6 +161,7 @@ class ViewController: UITableViewController {
         }catch{
             print("Error fetching data from context \(error)")
         }
+        
         tableView.reloadData()
         
     }
@@ -167,17 +185,18 @@ class ViewController: UITableViewController {
     
 }
 
-extension ViewController: UISearchBarDelegate{
+extension TodoViewController: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         let request: NSFetchRequest<Item>=Item.fetchRequest()
         
         //let predicator=NSPredicate(format: "title CONTAINS [cd] %@",searchBar.text!)
-        request.predicate = NSPredicate(format: "title CONTAINS [cd] %@",searchBar.text!)
+       let predicate = NSPredicate(format: "title CONTAINS [cd] %@",searchBar.text!)
+        
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        loadItem(with: request)
+        loadItem(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

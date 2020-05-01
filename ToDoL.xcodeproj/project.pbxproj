@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		0A5E01B0245781F700E3176F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E01AF245781F700E3176F /* AppDelegate.swift */; };
 		0A5E01B2245781F700E3176F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E01B1245781F700E3176F /* SceneDelegate.swift */; };
-		0A5E01B4245781F700E3176F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E01B3245781F700E3176F /* ViewController.swift */; };
+		0A5E01B4245781F700E3176F /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E01B3245781F700E3176F /* TodoViewController.swift */; };
 		0A5E01B7245781F700E3176F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5E01B5245781F700E3176F /* Main.storyboard */; };
 		0A5E01B9245781F800E3176F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A5E01B8245781F800E3176F /* Assets.xcassets */; };
 		0A5E01BC245781F800E3176F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5E01BA245781F800E3176F /* LaunchScreen.storyboard */; };
 		0AA410A82458E15C007B0DEF /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0AA410A62458E15C007B0DEF /* DataModel.xcdatamodeld */; };
+		0AA410CF245B27D6007B0DEF /* CategorieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA410CE245B27D6007B0DEF /* CategorieTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A5E01AC245781F700E3176F /* ToDoL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5E01AF245781F700E3176F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A5E01B1245781F700E3176F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0A5E01B3245781F700E3176F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A5E01B3245781F700E3176F /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		0A5E01B6245781F700E3176F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A5E01B8245781F800E3176F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A5E01BB245781F800E3176F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A5E01BD245781F800E3176F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AA410A72458E15C007B0DEF /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		0AA410CE245B27D6007B0DEF /* CategorieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategorieTableViewController.swift; path = ToDoL/View/CategorieTableViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +99,8 @@
 		0AA410A524588C9F007B0DEF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0A5E01B3245781F700E3176F /* ViewController.swift */,
+				0AA410CE245B27D6007B0DEF /* CategorieTableViewController.swift */,
+				0A5E01B3245781F700E3176F /* TodoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,7 +177,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AA410A82458E15C007B0DEF /* DataModel.xcdatamodeld in Sources */,
-				0A5E01B4245781F700E3176F /* ViewController.swift in Sources */,
+				0AA410CF245B27D6007B0DEF /* CategorieTableViewController.swift in Sources */,
+				0A5E01B4245781F700E3176F /* TodoViewController.swift in Sources */,
 				0A5E01B0245781F700E3176F /* AppDelegate.swift in Sources */,
 				0A5E01B2245781F700E3176F /* SceneDelegate.swift in Sources */,
 			);
